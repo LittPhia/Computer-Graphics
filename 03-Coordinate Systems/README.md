@@ -8,4 +8,5 @@ Transforming coordinates to NDC and then to screen coordinates is usually accomp
 - View space (or Eye space)
 - Clip space
 - Screen space
+
 Those are all a different state at which our vertices will be transformed in before finally ending up as fragments.
