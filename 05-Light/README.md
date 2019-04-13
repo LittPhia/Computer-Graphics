@@ -39,6 +39,15 @@ void keyboard_input(GLFWwindow *window) {
 		camera.keyboardEvent(GLFW_KEY_RIGHT, GLFW_PRESS);
 }
 ```
-If you successfully compile the project, you may get a window like this:
+If you successfully compile the project, then run the .exe and you may get a window like this:
 
 ![window first view](https://github.com/LittPhia/Computer-Graphics/blob/master/05-Light/Something%20wired/window%20first%20view.png)
+
+You can move the camera by simply tap up-down-left-right key, or change the viewport angle by press mouse left button then drag. It could be exciting to the one who just write this and comfirm the correctness, but boring to the others, surely. However, as you did this, you may notice that if you tap two key simultaneously, you are not moving to the combined direction, but just one direction of them, and the other key looks disabled, or in other word, overwhelmed.
+
+![window first view](https://github.com/LittPhia/Computer-Graphics/blob/master/05-Light/Something%20wired/why%20I%20am%20just%20moving%20forward.png)
+
+
+After a period of endless testing, I eventualy found something. In this camera system, if you tap two key at the same time(for example, up and left key tapped), function 'camera::keyboardEvent' will be called twice: 'camera.keyboardEvent(GLFW_KEY_UP, GLFW_PRESS)' and 'camera.keyboardEvent(GLFW_KEY_LEFT, GLFW_PRESS)' in two \'if\' sentences
+
+
