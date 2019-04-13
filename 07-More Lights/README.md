@@ -1,2 +1,2 @@
 # More Lights
-And cooler
+And more cools
