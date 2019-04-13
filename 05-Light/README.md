@@ -50,9 +50,13 @@ You can move the camera by simply tap up-down-left-right key, or change the view
 
 
 After a period of endless testing, I eventualy found something. In this camera system, if you tap two key at the same time(for example, up and left key tapped), function 'camera::keyboardEvent' will be called twice:
+
 `camera.keyboardEvent(GLFW_KEY_UP, GLFW_PRESS)`
+
 and
+
 `camera.keyboardEvent(GLFW_KEY_LEFT, GLFW_PRESS)`
+
 in two `if` sentences, as we expected to combine directions. Now have a CLEAR look at how we calculate the stride in each movement:
 ```cpp
 delta_time = glfwGetTime() - last_time;
@@ -63,9 +67,13 @@ GLfloat stride = Camera::KeyboardSensitivity * (GLfloat)delta_time;
 ```
 
 You might not be able to find the problem in first shot. Yet by marking the time this function called, you will see
+
 `CALLED_TIME(camera.keyboardEvent(GLFW_KEY_UP, GLFW_PRESS)) - CALLED_TIME(camera.keyboardEvent(GLFW_KEY_LEFT, GLFW_PRESS))`
+
 is much smaller than
+
 `CALLED_TIME(camera.keyboardEvent(GLFW_KEY_LEFT, GLFW_PRESS)) - CALLED_TIME(camera.keyboardEvent(GLFW_KEY_UP, GLFW_PRESS))`.
+
 
 Soon you will realize it is because between `KEY_UP` and `KEY_LEFT` there are just some simple `if`s and a `camera.keyboardEvent`, while between `KEY_LEFT` and next `KEY_UP` there is a WHOLE mainloop. And then, `KEY_UP`'s `delta_time` will naturally much more greater than `KEY_LEFT`'s. And? As you see.
 
