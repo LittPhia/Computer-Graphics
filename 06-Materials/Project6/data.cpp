@@ -6,7 +6,7 @@ using namespace glm;
 const int SCR_WIDTH = 1600;
 const int SCR_HEIGHT = 1600;
 
-float vertices[216] = {
+GLfloat vertices[216] = {
 	-0.5f, -0.5f, -0.5f,	 0.0f,  0.0f, -1.0f,
 	 0.5f, -0.5f, -0.5f,	 0.0f,  0.0f, -1.0f,
 	 0.5f,  0.5f, -0.5f,	 0.0f,  0.0f, -1.0f,
