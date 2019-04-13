@@ -40,4 +40,5 @@ void keyboard_input(GLFWwindow *window) {
 }
 ```
 If you successfully compile the project, you may get a window like this:
+
 ![window first view](https://github.com/LittPhia/Computer-Graphics/blob/master/05-Light/Something%20wired/window%20first%20view.png)
