@@ -39,6 +39,7 @@ void keyboard_input(GLFWwindow *window) {
 		camera.keyboardEvent(GLFW_KEY_RIGHT, GLFW_PRESS);
 }
 ```
+
 If you successfully compile the project, then run the .exe and you may get a window like this:
 
 ![window first view](https://github.com/LittPhia/Computer-Graphics/blob/master/05-Light/Something%20wired/window%20first%20view.png)
@@ -48,6 +49,22 @@ You can move the camera by simply tap up-down-left-right key, or change the view
 ![window first view](https://github.com/LittPhia/Computer-Graphics/blob/master/05-Light/Something%20wired/why%20I%20am%20just%20moving%20forward.png)
 
 
-After a period of endless testing, I eventualy found something. In this camera system, if you tap two key at the same time(for example, up and left key tapped), function 'camera::keyboardEvent' will be called twice: 'camera.keyboardEvent(GLFW_KEY_UP, GLFW_PRESS)' and 'camera.keyboardEvent(GLFW_KEY_LEFT, GLFW_PRESS)' in two \'if\' sentences
+After a period of endless testing, I eventualy found something. In this camera system, if you tap two key at the same time(for example, up and left key tapped), function 'camera::keyboardEvent' will be called twice: `camera.keyboardEvent(GLFW_KEY_UP, GLFW_PRESS)` and `camera.keyboardEvent(GLFW_KEY_LEFT, GLFW_PRESS)` in two `if` sentences, as we expected to combine directions. Now have a good look at how we calculate the stride in each movement:
+```cpp
+	delta_time = glfwGetTime() - last_time;
+	if (delta_time > 0.02) delta_time = 0.0;
+	last_time = glfwGetTime();
+	
+	GLfloat stride = Camera::KeyboardSensitivity * (GLfloat)delta_time;
+```
+
+You might not be able to find the problem in first shot. Yet by marking the time this function called, you will see
+`CALLED_TIME(camera.keyboardEvent(GLFW_KEY_UP, GLFW_PRESS)) - CALLED_TIME(camera.keyboardEvent(GLFW_KEY_LEFT, GLFW_PRESS))`
+is much smaller than
+`CALLED_TIME(camera.keyboardEvent(GLFW_KEY_LEFT, GLFW_PRESS)) - CALLED_TIME(camera.keyboardEvent(GLFW_KEY_UP, GLFW_PRESS))`.
+
+Soon you will realize it is because between `KEY_UP` and `KEY_LEFT` there are just some simple `if`s and a `camera.keyboardEvent`, while between `KEY_LEFT` and next `KEY_UP` there is a WHOLE mainloop.
+
+
 
 
