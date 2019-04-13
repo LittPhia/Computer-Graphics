@@ -66,7 +66,7 @@ last_time = glfwGetTime();
 GLfloat stride = Camera::KeyboardSensitivity * (GLfloat)delta_time;
 ```
 
-You might not be able to find the problem in first shot. Yet by marking the time this function called, you will see
+You might not be able to locate the problem in first shot, yet by marking the time this function called, you will see
 
 `CALLED_TIME(camera.keyboardEvent(GLFW_KEY_UP, GLFW_PRESS)) - CALLED_TIME(camera.keyboardEvent(GLFW_KEY_LEFT, GLFW_PRESS))`
 
